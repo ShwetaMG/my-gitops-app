@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-flask-app
+  namespace: default
+  labels:
+    app: gitops-flask
+spec:
+  replicas: 2 # Runs two copies of your app across your nodes for high availability
+  selector:
+    matchLabels:
+      app: gitops-flask
+  template:
+    metadata:
+      labels:
+        app: gitops-flask
+    spec:
+      containers:
+        - name: flask-app
+          # Replace 030028381414 with your actual AWS account number if needed
+          image: 030028381414.dkr.ecr.ap-south-1.amazonaws.com/my-gitops-app:latest
+          ports:
+            - containerPort: 5000 # The internal port your Flask app listens on
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
