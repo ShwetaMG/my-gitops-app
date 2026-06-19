@@ -7,7 +7,8 @@ metadata:
     # This tells AWS to hook up a public internet IP to the Load Balancer
     service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
 spec:
-  type: LoadBalancer # Triggers AWS to give your Flask app its own public URL
+  type: LoadBalancer   # Triggers AWS to give your Flask app its own public URL
+  externalTrafficPolicy: Local 
   ports:
     - port: 80 # Public web port
       targetPort: 5000 # Directs traffic to Flask's internal port
